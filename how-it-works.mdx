@@ -1,0 +1,85 @@
+---
+title: "How Fontcy translates your text into Unicode styles"
+description: "Fontcy maps each letter to a Unicode character equivalent at runtime — no server, no fonts, no build step. Here's exactly how the translation works."
+---
+
+Fontcy converts text by replacing each letter with a corresponding character from one of the Unicode mathematical or letterlike ranges. The entire process runs in your browser the moment you type: no network request is made, no font file is loaded, and nothing is stored. The output looks styled but is actually composed of discrete Unicode characters that any system handling plain text can display.
+
+## Unicode character mapping
+
+Each font style is defined as an array of 52 Unicode characters — one for each letter of the alphabet, lowercase first, then uppercase. The `alpha` string establishes the index order, and `translate` uses that index to swap each letter in your input for the corresponding character in the chosen style's array.
+
+```javascript
+const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+// f() converts a 52-char Unicode string into an array via Array.from()
+const f = (str) => Array.from(str);
+
+const styles = {
+    "Bold Sans":   f("𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆🇿𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭"),
+    "Script":      f("𝒶𝒷𝒸𝒹𝑒𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃𝑜𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵"),
+    // ...16 more styles
+};
+
+function translate(text, mapping) {
+    return text.split("").map(char => {
+        const idx = alpha.indexOf(char);
+        return idx !== -1 ? (mapping[idx] || char) : char;
+    }).join("");
+}
+```
+
+When `translate` runs, it iterates over every character in your input string. If the character is a letter, it looks up its position in `alpha` (0–25 for a–z, 26–51 for A–Z) and substitutes the Unicode character at that same index in the style's array. Any character that is not a letter — a digit, a space, a punctuation mark — is passed through unchanged.
+
+## Real-time rendering
+
+The `render()` function runs on every `input` event fired by the textarea. It walks the `styles` object and, for each style, either creates a new `font-box` `<div>` or updates an existing one. Each box shows the style name as a label and the translated text below it.
+
+```javascript
+function render() {
+    const val = document.getElementById("input").value;
+    const container = document.getElementById("output");
+
+    Object.keys(styles).forEach(name => {
+        let box = document.getElementById("style-" + name.replace(/\s/g, ''));
+        if (!box) {
+            box = document.createElement("div");
+            box.className = "font-box";
+            box.id = "style-" + name.replace(/\s/g, '');
+            box.innerHTML = `<div class="copied-badge">COPIED</div>
+                             <div class="label">${name}</div>
+                             <div class="text"></div>`;
+            box.onclick = () => {
+                navigator.clipboard.writeText(box.querySelector('.text').innerText);
+                box.classList.add('copied');
+                setTimeout(() => box.classList.remove('copied'), 1000);
+            };
+            container.appendChild(box);
+        }
+        box.querySelector('.text').innerText = translate(val, styles[name]);
+    });
+}
+```
+
+Clicking a font box calls the Clipboard API to write the translated text, then adds a `copied` CSS class that slides a green "COPIED" badge into view. The class is removed after one second.
+
+## Why Unicode?
+
+Because the characters Fontcy produces exist in the Unicode standard, they are treated as ordinary text by every application and platform that accepts plain text input. You do not need to install a font or use a platform that supports markup. The bold letter `𝗮` is a single character, just like `a` — it just happens to sit in a different Unicode range.
+
+This means styled text from Fontcy works in:
+
+- Twitter and X bios and posts
+- Instagram captions and usernames
+- Discord display names and messages
+- LinkedIn headlines and about sections
+- Email subjects and body text
+- Any plain-text field that does not strip non-ASCII characters
+
+<Info>
+  Numbers, punctuation, and special characters are passed through unchanged since the Unicode ranges only cover letters.
+</Info>
+
+## Adding custom styles
+
+The `styles` object is straightforward to extend. You add a key with the style name and a value that is the 52-character array for that style (a–z followed by A–Z). Because the mapping is purely data, no logic changes are needed. See [Adding a font style](/contributing/adding-fonts) for a step-by-step walkthrough.

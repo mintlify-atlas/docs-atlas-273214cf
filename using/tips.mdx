@@ -1,0 +1,42 @@
+---
+title: "Tips for choosing and using Fontcy's Unicode styles"
+description: "Practical advice on choosing the right Unicode style, mixing styles, handling special characters, and making sure your styled text is accessible."
+---
+
+Fontcy gives you 18 Unicode styles to choose from, and picking the right one for your context makes a noticeable difference. These tips help you choose well, combine styles manually, understand how punctuation behaves, and stay mindful of accessibility.
+
+## Choose the right style for your context
+
+Not every style suits every situation. Here's a starting point based on common use cases:
+
+- **Professional bios and headlines** — Script, Bold Script, and Small Caps tend to look polished without appearing overly decorative.
+- **Playful or casual content** — Bubble, Negative Bubble, and Curvy add personality and work well for lighthearted posts.
+- **Bold statements** — Bold Sans, Negative Square, and Negative Bubble stand out and draw attention.
+- **Aesthetic or artistic profiles** — Fraktur, Gothic Look, and Double Struck give a distinctive, editorial feel.
+- **Readability-first** — Small Caps and Wide (Fullwidth) are the most readable of the stylized options, especially at smaller sizes.
+
+<Tip>
+  Before settling on a style for a permanent bio or display name, paste it into your target platform first. Character rendering varies between platforms, and what looks great in Fontcy may render differently in a specific app.
+</Tip>
+
+## Mixing styles
+
+Fontcy renders each style as a separate box and copies one at a time. It doesn't combine styles automatically — but you can mix them manually. Copy a word or phrase from one box, paste it into your destination, then go back and copy from a different box to add alongside it. This lets you build headings or bios that use more than one style in the same line.
+
+## Special characters
+
+Fontcy's styling is applied through Unicode math and symbol character blocks, which only define equivalents for the 26 Latin letters (a–z, A–Z). Numbers and punctuation don't have counterparts in those blocks, so they pass through your text unchanged.
+
+For example, typing `Hello, World!` with the Bold Sans style produces `𝗛𝗲𝗹𝗹𝗼, 𝗪𝗼𝗿𝗹𝗱!` — the comma and exclamation mark stay as standard ASCII characters. This is expected behavior, not a bug.
+
+## Accessibility note
+
+<Note>
+  Screen readers may read Unicode styled characters differently or not at all. For important content that must be accessible to all users, use standard text instead of Unicode styled alternatives.
+</Note>
+
+If you're publishing content where accessibility matters — announcements, support messages, or anything intended for a broad audience — consider whether a styled version is appropriate. Decorative bios and display names are generally lower-risk contexts than body content.
+
+## Browser compatibility
+
+Fontcy is a single HTML file that uses no server-side code, frameworks, or plugins. It runs entirely in the browser using plain HTML, CSS, and JavaScript, so it works in any modern browser on desktop or mobile — Chrome, Firefox, Safari, Edge, and others — without any extensions or setup.

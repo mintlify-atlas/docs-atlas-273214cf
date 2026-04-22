@@ -1,0 +1,83 @@
+---
+title: "Adding a new Unicode font style to Fontcy explained"
+description: "Learn how to add a new Unicode font style to Fontcy by editing the styles object in index.html. No build step, no tooling — just a 52-char Unicode string."
+---
+
+Adding a new font style to Fontcy takes only a few minutes. The entire font registry lives in a single JavaScript object inside `index.html`, and each style is nothing more than a 52-character Unicode string. There is no build process, no package manager, and no tooling to install.
+
+## What you need
+
+Before you start, prepare a **52-character Unicode string** that maps each letter of the English alphabet in this exact order:
+
+1. **Positions 0–25** — your styled equivalents of `a` through `z` (lowercase)
+2. **Positions 26–51** — your styled equivalents of `A` through `Z` (uppercase)
+
+When a user types a letter, Fontcy looks up its index in the base alphabet array (`alpha`) and reads the character at that same position in your style's array. Position 0 maps to `a`, position 1 maps to `b`, and so on through position 51 for `Z`.
+
+## Step-by-step guide
+
+<Steps>
+  <Step title="Fork or clone the repository">
+    Get a copy of the source code from [github.com/b1naryn1nja/fontcy](https://github.com/b1naryn1nja/fontcy). You can fork it on GitHub to contribute back, or clone it locally for personal use.
+  </Step>
+  <Step title="Open index.html in a text editor">
+    The entire application lives in a single file. Open `index.html` in any text editor — no special tooling is needed.
+  </Step>
+  <Step title="Find the styles object">
+    Locate the `styles` object, which starts at around line 82. It looks like this:
+
+    ```javascript
+    const styles = {
+        "Bold Sans": f("𝗮𝗯𝗰..."),
+        "Italic Sans": f("𝘢𝘣𝘤..."),
+        // ...more styles
+    };
+    ```
+  </Step>
+  <Step title="Add your new style">
+    Insert a new entry before the closing `}` of the `styles` object, following this pattern:
+
+    ```javascript
+    "My Font Name": f("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    ```
+
+    Replace the name string with your chosen style name, and replace the letter string with your 52 Unicode characters — first all 26 lowercase equivalents (`a`→`z`), then all 26 uppercase equivalents (`A`→`Z`).
+
+    <Warning>
+      Make sure your string has exactly 52 characters: 26 lowercase followed by 26 uppercase. If the count is off, some letters will map incorrectly.
+    </Warning>
+  </Step>
+  <Step title="Test in your browser">
+    Open `index.html` directly in your browser. Your new style will appear in the grid immediately. Type any text into the input field to see it rendered in your style.
+  </Step>
+  <Step title="Submit a pull request">
+    Push your changes and open a pull request on GitHub. Include the name of the style and a brief description of the Unicode block you used.
+  </Step>
+</Steps>
+
+## Finding Unicode characters
+
+Unicode contains dozens of styled Latin alphabet sets you can use as font styles. Here are some reliable ways to find them:
+
+- Browse [unicode-table.com](https://unicode-table.com) or [fileformat.info](https://www.fileformat.info/info/unicode/block/) to explore Unicode blocks by category and character
+- The **Mathematical Alphanumeric Symbols** block (U+1D400–U+1D7FF) is one of the best sources for styled Latin letters — it includes bold, italic, script, fraktur, monospace, and double-struck variants
+- Copy and paste Unicode characters directly into the string — they are just characters, no escaping needed
+
+<Info>
+  The `f()` helper converts your string to a character array using `Array.from()`, which correctly handles multi-codepoint Unicode characters (emoji ranges).
+</Info>
+
+## Example: Adding a style
+
+Here is a concrete example using combining underline characters to create an underlined style:
+
+```javascript
+// In the styles object, add:
+"Double Underline": f("a̲b̲c̲d̲e̲f̲g̲h̲i̲j̲k̲l̲m̲n̲o̲p̲q̲r̲s̲t̲u̲v̲w̲x̲y̲z̲A̲B̲C̲D̲E̲F̲G̲H̲I̲J̲K̲L̲M̲N̲O̲P̲Q̲R̲S̲T̲U̲V̲W̲X̲Y̲Z̲")
+```
+
+After saving and refreshing `index.html` in your browser, a new "Double Underline" tile will appear in the style grid.
+
+## Requesting a font style
+
+If you would prefer not to add the style yourself, you can open an issue on GitHub describing the style you want. Visit [github.com/B1naryN1nja/Fontcy/issues](https://github.com/B1naryN1nja/Fontcy/issues) and include the name of the style and, if possible, an example of what the characters should look like.

@@ -1,0 +1,44 @@
+---
+title: "Fontcy FAQ — answers to your most common questions"
+description: "Answers to common questions about how Fontcy works, why some styles don't display correctly, privacy, mobile support, self-hosting, and contributing."
+---
+
+If something isn't working the way you expect, or you're curious about how Fontcy handles your text behind the scenes, the answers below cover the most common questions.
+
+<AccordionGroup>
+  <Accordion title="Why does my styled text show as boxes on some platforms?">
+    Some platforms don't render all Unicode character ranges. When a platform doesn't have a glyph for a character, it falls back to a box or question mark. Try a simpler style like Small Caps or Bold Sans — these use character ranges that have broader support across platforms and operating systems.
+  </Accordion>
+
+  <Accordion title="Does Fontcy store my text anywhere?">
+    No. Fontcy runs entirely in your browser. Your text is never sent to a server — everything happens locally on your device. The site uses Google Analytics for basic page-view tracking, but your typed input is never transmitted or stored anywhere.
+  </Accordion>
+
+  <Accordion title="Why don't numbers and symbols get styled?">
+    The Unicode math and symbol blocks that Fontcy uses only define styled equivalents for the 26 Latin letters (a–z, A–Z). Numbers and punctuation don't have counterparts in those blocks, so they pass through your text unchanged. This is a limitation of the Unicode standard, not something Fontcy can work around.
+  </Accordion>
+
+  <Accordion title="Can I use Fontcy on mobile?">
+    Yes. Fontcy works in any modern mobile browser. Open the Fontcy page on your phone, type or paste your text into the input box, and tap a font box to copy the styled text. Then switch to your app and paste it as you normally would.
+  </Accordion>
+
+  <Accordion title="Is Fontcy really free?">
+    Yes — completely free, with no ads, no sign-up, and no subscription. Fontcy is open source and released under the MIT license.
+  </Accordion>
+
+  <Accordion title="Can I self-host Fontcy?">
+    Yes. Fontcy is a single HTML file with no server-side dependencies. You can host it on any static hosting service — GitHub Pages, Netlify, Vercel, or your own server. See the [self-hosting guide](/contributing/self-hosting) for step-by-step instructions.
+  </Accordion>
+
+  <Accordion title="How do I request a new font style?">
+    Open an issue on the [GitHub repository](https://github.com/B1naryN1nja/Fontcy/issues) describing the Unicode style you'd like to see added. If you'd prefer to contribute it yourself, see the [adding fonts guide](/contributing/adding-fonts) for instructions on how the styles are implemented.
+  </Accordion>
+
+  <Accordion title="Why does Fraktur, Bubble, or another style not work on a specific platform?">
+    Each platform controls its own Unicode rendering. Enclosed styles like Bubble and Squared use characters from the emoji and enclosed alphanumeric Unicode blocks, which some platforms handle differently from standard text. If a particular style doesn't render correctly on your target platform, try a different one — Small Caps and Bold Sans tend to have the widest compatibility.
+  </Accordion>
+
+  <Accordion title="What font does Fontcy use for its interface?">
+    Fontcy's interface uses Noto Sans, loaded from Google Fonts. The styled text output, however, uses Unicode characters — not fonts. This means the output looks the same for anyone who reads it, regardless of what fonts they have installed on their device.
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,30 @@
+---
+title: "Browse all 18 Unicode font styles available in Fontcy"
+description: "Fontcy includes 18 Unicode font styles organized into three categories. Browse all styles or jump to a specific category to see examples and use cases."
+---
+
+Fontcy includes 18 Unicode font styles, each of which maps standard Latin letters to a specific Unicode block. When you type into Fontcy, every style is generated instantly in parallel — no selection needed. Click any style box to copy it.
+
+<CardGroup cols={2}>
+  <Card title="Serif and math styles" icon="square-root-variable" href="/fonts/serif-styles">
+    Nine styles drawn from Unicode's mathematical alphanumeric blocks: Bold Sans, Italic Sans, Monospace, Script, Fraktur, Double Struck, and more.
+  </Card>
+  <Card title="Decorative styles" icon="wand-magic-sparkles" href="/fonts/decorative-styles">
+    Four styles that use creative Unicode substitutions for a unique look: Small Caps, Fancy 1, Curvy, and Gothic Look.
+  </Card>
+  <Card title="Symbol and enclosed styles" icon="circle" href="/fonts/symbol-styles">
+    Five styles that wrap letters in geometric shapes: Bubble, Negative Bubble, Squared, Negative Square, and Wide/Fullwidth.
+  </Card>
+</CardGroup>
+
+<Note>
+  Numbers and punctuation are not transformed — they pass through unchanged.
+</Note>
+
+## How styles work
+
+Each style is a 52-character Unicode mapping covering a–z and A–Z. When Fontcy receives your input, it replaces each letter with the corresponding Unicode character from the active style's map. Characters outside the a–z / A–Z range — digits, spaces, punctuation — are left as-is and passed through to the output unchanged.
+
+<Tip>
+  Some Unicode characters may not render correctly in all apps. If you see boxes or question marks, try a different style.
+</Tip>

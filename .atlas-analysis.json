@@ -1,0 +1,49 @@
+{
+  "projectType": "saas",
+  "projectName": "Fontcy",
+  "projectDescription": "Fontcy is a free, open-source fancy Unicode text generator for social media, bios, and anywhere custom fonts aren't supported.",
+  "theme": "almond",
+  "primaryColor": "#007bff",
+  "lightColor": "#e8f0fe",
+  "darkColor": "#0056cc",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction", "how-it-works"]
+          },
+          {
+            "group": "Font Styles",
+            "pages": ["fonts/overview", "fonts/serif-styles", "fonts/decorative-styles", "fonts/symbol-styles"]
+          },
+          {
+            "group": "Using Fontcy",
+            "pages": ["using/copy-paste", "using/tips", "using/faq"]
+          },
+          {
+            "group": "Contributing",
+            "pages": ["contributing/adding-fonts", "contributing/self-hosting", "contributing/license"]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "18 Unicode font styles including Bold Sans, Italic Sans, Script, Fraktur, Double Struck, and more",
+    "Real-time text preview as you type",
+    "One-click copy to clipboard",
+    "Completely ad-free and always free to use",
+    "Open source under MIT license",
+    "Lightweight — pure HTML, CSS, and JavaScript with no dependencies",
+    "Easy to self-host or fork and customize"
+  ],
+  "publicApiSurface": [
+    "styles object — mapping of font names to Unicode character arrays",
+    "translate(text, mapping) — converts plain text to Unicode styled text",
+    "render() — updates all font preview boxes in the UI",
+    "navigator.clipboard.writeText() — copies styled text on box click"
+  ]
+}

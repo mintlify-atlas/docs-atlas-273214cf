@@ -1,0 +1,76 @@
+---
+title: "Self-hosting Fontcy on GitHub Pages, Netlify, or Vercel"
+description: "Deploy Fontcy anywhere that serves static files — no backend, no database, no build step needed. GitHub Pages, Netlify, and Vercel all work out of the box."
+---
+
+Fontcy is a single HTML file with no server-side dependencies. You can host it on any platform that serves static files, from a personal server to a free hosting tier, and it will work exactly as it does on the original site. There is nothing to compile, no runtime to install, and no environment to configure.
+
+## Requirements
+
+Hosting Fontcy requires nothing beyond a web server or static file host. There is no Node.js runtime, no database, no API, and no backend of any kind. If a service can serve an HTML file over HTTP, it can host Fontcy.
+
+## Hosting options
+
+<Tabs>
+  <Tab title="GitHub Pages">
+    <Steps>
+      <Step title="Fork the repository">
+        Fork [github.com/b1naryn1nja/fontcy](https://github.com/b1naryn1nja/fontcy) to your own GitHub account.
+      </Step>
+      <Step title="Enable GitHub Pages">
+        In your forked repository, go to **Settings → Pages**. Under "Source", select your `main` branch and set the folder to `/ (root)`.
+      </Step>
+      <Step title="Save and wait">
+        Click **Save**. GitHub will build and deploy the site within a minute or two.
+      </Step>
+      <Step title="Visit your site">
+        Your hosted Fontcy will be live at `https://your-username.github.io/fontcy`.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Netlify">
+    <Steps>
+      <Step title="Connect your repository">
+        Log in to [netlify.com](https://netlify.com) and click **Add new site → Import an existing project**. Connect your GitHub account and select your Fontcy fork.
+      </Step>
+      <Step title="Deploy">
+        Netlify detects that there is no build command needed. Click **Deploy site**. Your site goes live in seconds and auto-deploys on every push to your main branch.
+      </Step>
+      <Step title="Alternative: drag and drop">
+        You can also drag and drop `index.html` directly into the Netlify dashboard under **Sites → Deploy manually**. No account linking required.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Vercel">
+    <Steps>
+      <Step title="Import the repository">
+        Log in to [vercel.com](https://vercel.com) and click **Add New → Project**. Import your Fontcy repository from GitHub.
+      </Step>
+      <Step title="Deploy">
+        Vercel automatically detects a static site. Leave all settings at their defaults and click **Deploy**. Your site is live instantly.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Any web server">
+    Copy `index.html` to your server's web root directory (for example `/var/www/html/` on a typical Linux server with nginx or Apache). No additional configuration is needed — the file serves itself.
+  </Tab>
+</Tabs>
+
+## Local use
+
+You do not need a server at all for personal use. Open `index.html` directly in any modern browser using a `file://` URL. All functionality works the same way — no internet connection is required once you have the file.
+
+<Tip>
+  Because Fontcy is a single file, you can rename it to anything (like `fancy-text.html`) and it still works.
+</Tip>
+
+## Customizing your hosted version
+
+The MIT license allows you to modify Fontcy freely. On your own hosted copy, you can change the page title, adjust the color scheme, remove styles you do not want, or add new ones. You own your fork entirely.
+
+Some common customizations:
+
+- **Change the title** — edit the `<title>` tag and the `<h1>` heading in `index.html`
+- **Remove styles** — delete entries from the `styles` object
+- **Add styles** — see [adding fonts](/contributing/adding-fonts) for a step-by-step guide
+- **Change colors** — the CSS is embedded directly in `index.html` and is easy to modify
